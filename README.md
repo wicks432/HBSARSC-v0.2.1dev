@@ -6,8 +6,10 @@ Jangwon Lee, Korea University (jangwonlee@korea.ac.kr) <br/>
 Dongu Han, Korea University (idontknow35@korea.ac.kr) <br/>
 Jichan Park, Korea University (2020020343@korea.ac.kr) <br/>
 Taeryon Choi, Korea University  (trchoi@korea.ac.kr) <br/>
-## Maintainer
+## Maintainers
 Jangwon Lee, Korea University (jangwonlee@korea.ac.kr)
+Dongu Han, Korea University (idontknow35@korea.ac.kr)
+Jichan Park, Korea University (2020020343@korea.ac.kr)
 # Introduction
 We propose a hierarchical Bayes (HB) model for functional data analysis where different groups have different flexible regression functions. We use HB Gaussian processes to model the functions at the lower-level (within groups) and upper-level (between groups). The spectral coefficients of the Gaussian processes have HB smoothing priors that serve two roles: they describe the heterogeneity in the spectral coefficients across groups, and they determine the smoothness of the flexible functions. The HB model is particularly appropriate when data within groups are sparse or do not cover the entire domain of the function. In these cases, the HB Gaussian model pools data across groups and relies on the upper-level model for estimation. Our model also allows shape constraints, such as monotonic functions. When appropriate, shape constraints drastically improve estimation with sparse data. 
 # Simulation examples with various shape constraint functions.
