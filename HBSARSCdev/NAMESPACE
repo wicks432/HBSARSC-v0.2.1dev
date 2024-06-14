@@ -1,0 +1,6 @@
+useDynLib(HBSARSCdev, .registration=TRUE)
+importFrom(Rcpp, evalCpp)
+exportPattern("^[[:alpha:]]+")
+export(BSAR_Free, BBS_Free, HBSAR, HBBS, HBSAR_Poly, BSAR_2D_Free, BSAR_2D_Mono, HBSAR_2D_Free)
+import(splines)
+## import other packages

@@ -1,0 +1,25 @@
+=========================================
+HBSARSC v0.1.0 (Release date: 2021-12-08)
+=========================================
+
+changes:
+
+* First release
+
+=========================================
+HBSARSC v0.2.0 (Release date: 2023-07-04)
+=========================================
+
+changes:
+
+* Change simulation data sets
+
+=========================================
+HBSARSC v0.2.1 (Release date: 2024-06-13)
+=========================================
+
+changes:
+
+* HBSAR (U, MM, Binary, Ordinal) 
+* Spline basis
+* 2D (Unconstrained, Monotone)

@@ -1,0 +1,17 @@
+Package: HBSARSCdev
+Type: Package
+Title: Hierarchical Bayesian Spectral Analysis Regression with Shape Constraints for Multi-Group Data
+Version: 0.2.1
+Date: 2024-06-13
+Author: Peter Lenk,
+  Jangwon Lee,
+  Dongu Han,
+  Jichan Park,
+  Taeryon Choi
+Maintainer: Jangwon Lee <jangwonlee@korea.ac.kr>
+Description: More about what it does (maybe more than one line)
+License: GPL (>= 2)
+Imports: Rcpp (>= 1.0.5), RcppProgress (>= 0.1), splines (>= 3.6.2)
+LinkingTo: Rcpp, RcppArmadillo, RcppProgress
+LazyData: true
+Depends: R (>= 3.5.0)
