@@ -75,7 +75,8 @@
                     shape=c('Free','Increasing','Decreasing','IncreasingConvex','DecreasingConcave',
                             'IncreasingConcave','DecreasingConvex','IncreasingS','DecreasingS',
                             'IncreasingRotatedS','DecreasingRotatedS','InvertedU','Ushape',
-                            'IncMultiModal','DecMultiModal')) {
+                            'IncMultiModal','DecMultiModal'),
+                    save_large_mcmc=T) {
   
   if (!is.matrix(ydata)) ydata = as.matrix(ydata)
   if (!is.matrix(xdata)) xdata = as.matrix(xdata)
@@ -764,7 +765,11 @@
   sigma2_alphag = matrix(0, smcmc, 1)
   sigma2_betag  = matrix(0, smcmc, 1)
   
-  thetallg     = array(0, c(ntheta, ngroups, smcmc))
+  if (save_large_mcmc==T) {
+    thetallg   = array(0, c(ntheta, ngroups, smcmc))
+  } else {
+    thetallg   = array(0, c(1, 1, 1))
+  }
   theta0g      = array(0, c(smcmc, ntheta))
   tauallg      = array(0, c(smcmc, ntheta)) # StdDev for spectral coefficients
   eta0g        = array(0, c(smcmc, 1)) # STDEV for upper level spectral coefficients
@@ -795,7 +800,12 @@
   mslope0g          = matrix(0, smcmc, 1)
   mslope_log_sigmag = matrix(0, smcmc, 1)
   
-  fxgridallg = array(0, c(nint+1, ngroups, smcmc))
+  if (save_large_mcmc==T) {
+    fxgridallg = array(0, c(nint+1, ngroups, smcmc))
+  } else {
+    fxgridallg = array(0, c(1, 1, 1))
+  }
+  
   f0xgridg   = array(0, c(smcmc, nint+1))
   
   fxgridall       = matrix(0,nint+1,ngroups)
@@ -841,7 +851,7 @@
   data_all = list(ydata=ydata, yodata=yodata, valpha=valpha, wbeta=wbeta, vdata=vdata, wdata=wdata, zdata=zdata)
   cpara = c(ntot, ngroups, nparv, nparw, nparw2, nparz, phidim, nbasis, nblow, nblow0, maxmodmet,
             nskip, nmcmcall, smcmc, nint, ntheta, nstat, nflex, nomega,
-            iflagHBsigma, iflagpsi, iflagCenter, iflagACE, iflagZ, iflaglm, iflagpn, iflagsc, iflagZcnst)
+            iflagHBsigma, iflagpsi, iflagCenter, iflagACE, iflagZ, iflaglm, iflagpn, iflagsc, iflagZcnst, save_large_mcmc)
   
   probit_para  = list(id_probit1=id_probit1-1, id_probit0=id_probit0-1)
   ordinal_para = list(id_cut_free=id_cut_free-1, id_cut_bot=id_cut_bot-1, id_cut_top=id_cut_top-1,
@@ -1030,13 +1040,18 @@
   }
   
   # Get HPD Intervals
-  qs      = c(0.025,0.975)
-  fxgridq = array(0,dim=c(nint+1,2,ngroups))
-  for(j in 1:ngroups){
-    fxjg         = fxgridallg[,j,]
-    fxjq         = t(apply(fxjg,1,quantile,probs=qs))
-    fxgridq[,,j] = fxjq
+  if (save_large_mcmc==T) {
+    qs      = c(0.025,0.975)
+    fxgridq = array(0,dim=c(nint+1,2,ngroups))
+    for(j in 1:ngroups){
+      fxjg         = fxgridallg[,j,]
+      fxjq         = t(apply(fxjg,1,quantile,probs=qs))
+      fxgridq[,,j] = fxjq
+    }
+  } else {
+    fxgridq = 0
   }
+  
   
   fxgridm     = fxgridm/smcmc
   fxgrids     = sqrt(abs(fxgrids - smcmc*fxgridm^2)/smcmc)
