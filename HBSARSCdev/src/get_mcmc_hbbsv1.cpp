@@ -106,10 +106,11 @@ Rcpp::List get_mcmc_HBBS(Rcpp::List& data_all,
   bool bflagACE     = cpara(22);
   bool bflagZ       = cpara(23);
   
-  int iflaglm    = cpara(24);
-  int iflagpn    = cpara(25);   
-  int iflagsc    = cpara(26);
-  int iflagZcnst = cpara(27);
+  int iflaglm          = cpara(24);
+  int iflagpn          = cpara(25);   
+  int iflagsc          = cpara(26);
+  int iflagZcnst       = cpara(27);
+  bool save_large_mcmc = cpara(28);
   
   double xdelta = dpara(0);
   double xrange = dpara(1);
@@ -992,7 +993,7 @@ Rcpp::List get_mcmc_HBBS(Rcpp::List& data_all,
                                      Rcpp::Named("mslope")      = mslopeall(j));
           
           fxgrid_new = rcpp_Getfx(fpars);
-          
+        
           //---------------------------------------------------
           // Compute fj(x_obs)
           // fxdata = GetUpfxdata(xgrid,xinx,xover,fxgrid)
@@ -1448,13 +1449,17 @@ Rcpp::List get_mcmc_HBBS(Rcpp::List& data_all,
       eta0g(isave)             = eta0;
       thetam                  += thetall;
       thetas                  += square(thetall);
-      thetallg.slice(isave)    = thetall;
+      if (save_large_mcmc) {
+        thetallg.slice(isave)  = thetall;
+      }
       theta0g.row(isave)       = theta0.t();
       fxdatam                 += fxdata;
       fxdatas                 += square(fxdata);
       fxgridm                 += fxgridall;
       fxgrids                 += square(fxgridall);
-      fxgridallg.slice(isave)  = fxgridall;
+      if (save_large_mcmc) {
+        fxgridallg.slice(isave) = fxgridall;
+      }
       f0xgridg.row(isave)      = f0xgrid.t();
       f0xgridm                += f0xgrid;
       f0xgrids                += square(f0xgrid);
